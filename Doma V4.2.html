@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estructura FV · Opción B · Rev 4</title>
+<style>
+:root{--ink:#17243a;--mu:#5c6b7d;--ln:#dce4ee;--bg:#f3f6fa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(120deg,#10213e,#174e75);color:#fff;padding:26px 16px}
+header .inner,main{max-width:1220px;margin:auto}
+h1{margin:0 0 6px;font-size:clamp(1.35rem,3.6vw,2.3rem);line-height:1.15}
+header p{margin:0;max-width:980px;color:#c5ddf5}
+main{padding:12px}
+section{background:#fff;border:1px solid var(--ln);border-radius:14px;margin:12px 0;padding:16px;box-shadow:0 4px 16px rgba(20,35,55,.04)}
+h2{margin:0 0 10px;font-size:1.22rem}
+h3{margin:14px 0 6px;font-size:1rem}
+p{margin:7px 0}
+.alert{border:1px solid;border-radius:9px;padding:11px 13px;margin:10px 0;font-size:.93rem}
+.danger{color:#7a271a;background:#fff2f0;border-color:#f4b8af}
+.warning{color:#783d06;background:#fff8eb;border-color:#f7d28d}
+.info{color:#17457e;background:#eef6ff;border-color:#bdd8f7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px}
+.card{background:#f8fafc;border:1px solid var(--ln);border-radius:9px;padding:11px}
+.card strong{display:block}
+.mu{color:var(--mu)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:560px;font-size:.92rem}
+th,td{border-bottom:1px solid #e5ebf2;padding:8px 9px;text-align:left;vertical-align:top}
+th{background:#f2f6fa}
+ul,ol{padding-left:20px}li{margin:5px 0}
+.vs{padding:0;overflow:hidden}
+.vh{padding:16px;border-bottom:1px solid var(--ln)}
+.tb{display:flex;flex-wrap:wrap;gap:6px;padding:9px 12px;background:#f8fafc;border-bottom:1px solid var(--ln)}
+button{appearance:none;border:1px solid #b9c7d8;border-radius:7px;background:#fff;color:#173257;padding:8px 9px;font:inherit;font-weight:650;cursor:pointer;min-height:40px;font-size:.86rem}
+button:active{background:#e3edf9}
+button[aria-pressed="false"]{opacity:.5}
+#vp{width:100%;height:min(70vh,680px);min-height:360px;position:relative;background:linear-gradient(#edf5fc,#f9fbfd);overflow:hidden}
+#vp canvas{width:100%;height:100%;display:block;touch-action:none}
+#fb{width:100%;height:100%;overflow:auto;padding:8px;background:#f8fafc}
+#fb svg{width:100%;min-width:640px;height:auto;display:block}
+#tip{display:none;position:absolute;z-index:12;pointer-events:none;max-width:300px;background:rgba(15,23,42,.93);color:#fff;padding:7px 10px;border-radius:8px;font-size:.85rem}
+#info3d{position:absolute;right:10px;bottom:10px;z-index:8;width:min(380px,calc(100% - 20px));background:rgba(255,255,255,.94);border:1px solid #c5d3e2;border-radius:12px;padding:11px 13px;box-shadow:0 8px 24px rgba(15,23,42,.12);font-size:.9rem;color:#334155;backdrop-filter:blur(6px)}
+#info3d strong{display:block;margin-bottom:3px;color:#0f172a}
+.st{padding:9px 14px;background:#eef6ff;border-top:1px solid #d3e4f7;color:#284867;font-size:.9rem}
+.lg{display:flex;flex-wrap:wrap;gap:7px 14px;padding:9px 14px;font-size:.88rem}
+.sw{display:inline-block;width:12px;height:12px;margin-right:4px;border-radius:3px;vertical-align:-2px;border:1px solid rgba(0,0,0,.18)}
+footer{max-width:1220px;margin:auto;padding:14px 18px 32px;color:var(--mu);font-size:.88rem}
+@media(max-width:600px){main{padding:7px}section{padding:12px}#vp{height:54vh;min-height:320px}}
+</style>
+</head>
+<body>
+<header>
+<div class="inner">
+<h1>Estructura metálica FV · Opción B · Revisión 4</h1>
+<p>Vertical de CC prolongado hasta el piso, bandeja CC frontal sobre ménsulas, cables CC rojo/negro, AC por debajo del tablero y techo con pendiente correcta hacia adelante.</p>
+</div>
+</header>
+<main>
+
+<section>
+<h2>1. Cambios de esta revisión</h2>
+<div class="cards">
+<div class="card"><strong>Vertical CC hasta el piso</strong><span class="mu">De Y = 0 a Y = 1900. Recibe la ménsula de bandeja y el triángulo de techo.</span></div>
+<div class="card"><strong>Bandeja sobre 2 ménsulas</strong><span class="mu">Una en el vertical de CC y otra en la pata izquierda del inversor.</span></div>
+<div class="card"><strong>CC rojo / negro</strong><span class="mu">11 pares: positivo rojo, negativo negro, 4 mm².</span></div>
+<div class="card"><strong>AC por debajo</strong><span class="mu">Sale del costado AC del inversor y entra por la parte inferior del tablero AC.</span></div>
+<div class="card"><strong>Techo corregido</strong><span class="mu">Pendiente hacia adelante (frente más bajo). Escurre al frente.</span></div>
+</div>
+<div class="alert danger"><strong>Anteproyecto.</strong> No fabricar ni energizar sin cálculo estructural, eléctrico y verificación del manual Huawei.</div>
+</section>
+
+<section>
+<h2>2. Lista de corte preliminar</h2>
+<div class="tw"><table>
+<thead><tr><th>Pieza</th><th>Material</th><th>Cant.</th><th>Longitud</th><th>Posición</th></tr></thead>
+<tbody>
+<tr><td>Horizontal superior</td><td>PGC 90×40×15×1,6</td><td>1</td><td>3435 mm</td><td>Y = 1600</td></tr>
+<tr><td>Horizontal inferior</td><td>PGC 90×40×15×1,6</td><td>1</td><td>3435 mm</td><td>Y = 1000 (borde inf. tablero CC)</td></tr>
+<tr><td>Vertical CC (izquierdo)</td><td>PGC 90×40×15×1,6</td><td>1</td><td>1900 mm</td><td>X = −1717,5 · Y = 0 a 1900</td></tr>
+<tr><td>Vertical AC (derecho)</td><td>PGC 90×40×15×1,6</td><td>1</td><td>600 mm</td><td>X = +1717,5 · Y = 1000 a 1600</td></tr>
+<tr><td>Pata inversor izquierda</td><td>PGC 90×40×15×1,6</td><td>1</td><td>2200 mm</td><td>X = −368,75 · Y = −600 a 1600</td></tr>
+<tr><td>Pata inversor derecha</td><td>PGC 90×40×15×1,6</td><td>1</td><td>2200 mm</td><td>X = +368,75 · Y = −600 a 1600</td></tr>
+<tr><td>Prolongación techo derecha</td><td>PGC 90×40×15×1,6</td><td>1</td><td>≈300 mm</td><td>Y = 1600 a 1900</td></tr>
+<tr><td>Brazo superior techo</td><td>PGC 90×40×15×1,6</td><td>2</td><td>≈740 mm</td><td>Inclinado hacia adelante</td></tr>
+<tr><td>Diagonal techo</td><td>PGC 90×40×15×1,6</td><td>2</td><td>≈785 mm</td><td>Triangulación</td></tr>
+<tr><td>Correas de techo</td><td>PGC 90×40×15×1,6</td><td>2</td><td>3435 mm</td><td>Posterior y frontal</td></tr>
+<tr><td>Cubierta</td><td>Chapa / policarbonato</td><td>1</td><td>3935 × 730 mm</td><td>Pendiente al frente</td></tr>
+<tr><td>Ménsula bandeja</td><td>Ángulo galv.</td><td>2</td><td>≈300 mm</td><td>Vertical CC y pata izq. inversor</td></tr>
+<tr><td>Bandeja CC</td><td>Bandeja galvanizada</td><td>1</td><td>≈1350 mm</td><td>Frontal, Y ≈ 700</td></tr>
+<tr><td>Bases hormigón</td><td>H°</td><td>2</td><td>400×400 × 600 mm</td><td>Patas del inversor</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<section class="vs">
+<div class="vh">
+<h2>3. Modelo 3D interactivo</h2>
+<p class="mu">PC: arrastrar para girar, rueda para zoom. Móvil: un dedo gira, dos dedos acercan. Pasá el mouse o tocá un componente: el recuadro inferior derecho muestra el detalle.</p>
+</div>
+<div class="tb">
+<button type="button" id="viewIso">General</button>
+<button type="button" id="viewFront">Frente</button>
+<button type="button" id="viewSide">Lateral</button>
+<button type="button" id="viewTop">Superior</button>
+<button type="button" id="toggleRoof" aria-pressed="true">Techo</button>
+<button type="button" id="toggleCables" aria-pressed="true">Cables</button>
+<button type="button" id="toggleFound" aria-pressed="true">Bases</button>
+<button type="button" id="toggleDims" aria-pressed="true">Cotas</button>
+<button type="button" id="toggleLabels" aria-pressed="true">Rótulos</button>
+</div>
+<div id="vp">
+<div id="fb">
+<svg viewBox="0 0 1000 660" aria-label="Vista frontal alternativa">
+<rect width="1000" height="660" fill="#f8fafc"/>
+<text x="24" y="30" font-size="20" fill="#173257" font-family="Arial">Vista alternativa (si el 3D no carga)</text>
+<polygon points="90,70 910,70 910,95 90,118" fill="#8fa0b5" stroke="#34465d"/>
+<rect x="108" y="175" width="784" height="10" fill="#718096"/>
+<rect x="108" y="318" width="784" height="10" fill="#718096"/>
+<rect x="101" y="70" width="14" height="430" fill="#5d6b7c"/>
+<rect x="885" y="175" width="14" height="153" fill="#5d6b7c"/>
+<rect x="418" y="95" width="14" height="405" fill="#5d6b7c"/>
+<rect x="568" y="95" width="14" height="405" fill="#5d6b7c"/>
+<rect x="108" y="185" width="126" height="126" fill="#e6dfcc" stroke="#726d60"/>
+<rect x="392" y="192" width="216" height="146" fill="#f7fafc" stroke="#64748b"/>
+<rect x="766" y="185" width="126" height="156" fill="#e6dfcc" stroke="#726d60"/>
+<text x="171" y="255" text-anchor="middle" font-size="16" fill="#333">CC</text>
+<text x="500" y="268" text-anchor="middle" font-size="17" fill="#263445">INVERSOR</text>
+<text x="829" y="268" text-anchor="middle" font-size="16" fill="#333">AC</text>
+<rect x="101" y="385" width="330" height="18" fill="#8998a5" stroke="#556270"/>
+<path d="M171 311 L171 394 L430 394 L430 340" fill="none" stroke="#c62828" stroke-width="4"/>
+<path d="M178 311 L178 400 L438 400 L438 340" fill="none" stroke="#111" stroke-width="4"/>
+<path d="M608 338 L640 338 L640 430 L829 430 L829 341" fill="none" stroke="#2563eb" stroke-width="6"/>
+<line x1="70" y1="500" x2="930" y2="500" stroke="#62826a" stroke-width="3"/>
+<rect x="384" y="500" width="82" height="100" fill="#cbd5df" stroke="#657384"/>
+<rect x="534" y="500" width="82" height="100" fill="#cbd5df" stroke="#657384"/>
+<text x="500" y="640" text-anchor="middle" font-size="13" fill="#34465d">Techo escurre al frente · bandeja delante · CC rojo/negro · AC por debajo</text>
+</svg>
+</div>
+</div>
+<div id="tip"></div>
+<div id="info3d"><strong>Información del componente</strong>Pasá el mouse o tocá un elemento para ver dimensiones, posición y material.</div>
+<div class="st" id="st">Cargando visor 3D…</div>
+<div class="lg">
+<span><i class="sw" style="background:#7f8c9a"></i>PGC</span>
+<span><i class="sw" style="background:#e6dfcc"></i>Tableros</span>
+<span><i class="sw" style="background:#f3f6f8"></i>Inversor</span>
+<span><i class="sw" style="background:#8fa0b5"></i>Techo</span>
+<span><i class="sw" style="background:#c62828"></i>CC + rojo</span>
+<span><i class="sw" style="background:#111"></i>CC − negro</span>
+<span><i class="sw" style="background:#2563eb"></i>AC</span>
+<span><i class="sw" style="background:#8998a5"></i>Bandeja</span>
+<span><i class="sw" style="background:#b8c3cf"></i>Hormigón</span>
+</div>
+</section>
+
+<section>
+<h2>4. Notas de montaje</h2>
+<ul>
+<li>El vertical de CC llega al piso (placa de apoyo). No lleva base de hormigón de 400×400; esas dos bases son solo de las patas del inversor.</li>
+<li>La bandeja CC va <strong>por delante</strong>, a Y ≈ 700 mm, apoyada en dos ménsulas.</li>
+<li>Cables solares 4 mm²: <strong>positivo rojo</strong>, <strong>negativo negro</strong>. 11 strings = 11 pares.</li>
+<li>El datasheet del inversor indica conectores DC <strong>Amphenol Helios H4</strong>. No mezclar con MC4 genérico sin confirmar compatibilidad.</li>
+<li>Cable AC 3×95+50 mm² XLPE: sale del costado AC del inversor y entra por debajo del tablero AC, con prensaestopas. Sin bandeja.</li>
+<li>El techo baja hacia adelante (~60 mm en 730 mm ≈ 4,7°) para escurrir la lluvia al frente.</li>
+</ul>
+<div class="alert warning">Recorridos de cables y bandeja son esquemáticos. Verificar holguras Huawei (≥600 mm laterales e inferior, ≥200 mm superior), radios de curvatura e IP.</div>
+</section>
+</main>
+<footer>Anteproyecto de coordinación dimensional. Requiere aprobación estructural, eléctrica y del fabricante.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function(){
+"use strict";
+var st=document.getElementById("st"), vp=document.getElementById("vp"), fb=document.getElementById("fb");
+var tipEl=document.getElementById("tip"), infoEl=document.getElementById("info3d");
+function fail(m){fb.style.display="block";st.textContent=m;}
+if(!window.THREE||!THREE.OrbitControls){fail("Vista alternativa. El 3D necesita Internet.");return;}
+
+try{
+var scene=new THREE.Scene(); scene.background=new THREE.Color(0xf2f7fc);
+var camera=new THREE.PerspectiveCamera(42,1,0.02,55);
+var renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:"default"});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));
+renderer.outputEncoding=THREE.sRGBEncoding;
+var cv=renderer.domElement; cv.style.touchAction="none"; vp.appendChild(cv); fb.style.display="none";
+
+var ctrl=new THREE.OrbitControls(camera,cv);
+ctrl.enableDamping=true; ctrl.dampingFactor=0.08;
+ctrl.minDistance=1.4; ctrl.maxDistance=12; ctrl.maxPolarAngle=Math.PI*0.92;
+ctrl.target.set(0,0.85,0.15);
+if(THREE.TOUCH){ctrl.touches={ONE:THREE.TOUCH.ROTATE,TWO:THREE.TOUCH.DOLLY_PAN};}
+
+function isoV(){camera.position.set(3.7,2.55,4.6);ctrl.target.set(0,0.85,0.15);ctrl.update();}
+function frV(){camera.position.set(0,1.1,6.3);ctrl.target.set(0,0.85,0);ctrl.update();}
+function siV(){camera.position.set(5.6,1.35,0.05);ctrl.target.set(0,0.85,0.18);ctrl.update();}
+function toV(){camera.position.set(0,5.4,0.2);ctrl.target.set(0,0.85,0.18);ctrl.update();}
+isoV();
+
+scene.add(new THREE.HemisphereLight(0xffffff,0xa9b7c6,1.1));
+var dl=new THREE.DirectionalLight(0xffffff,0.9); dl.position.set(3,5,4); scene.add(dl);
+var dl2=new THREE.DirectionalLight(0xffffff,0.32); dl2.position.set(-3,2,-2); scene.add(dl2);
+
+var M={
+  st:new THREE.MeshStandardMaterial({color:0x7f8c9a,metalness:.55,roughness:.48}),
+  sd:new THREE.MeshStandardMaterial({color:0x566779,metalness:.48,roughness:.5}),
+  bd:new THREE.MeshStandardMaterial({color:0xe6dfcc,roughness:.7}),
+  iv:new THREE.MeshStandardMaterial({color:0xf3f6f8,roughness:.55}),
+  bk:new THREE.MeshStandardMaterial({color:0x1a1a1a,roughness:.7}),
+  rf:new THREE.MeshStandardMaterial({color:0x8fa0b5,metalness:.35,roughness:.55,side:THREE.DoubleSide}),
+  co:new THREE.MeshStandardMaterial({color:0xb8c3cf,roughness:.95,transparent:true,opacity:.78}),
+  tr:new THREE.MeshStandardMaterial({color:0x8998a5,metalness:.55,roughness:.5}),
+  rd:new THREE.MeshStandardMaterial({color:0xc62828,roughness:.7}),
+  ng:new THREE.MeshStandardMaterial({color:0x111111,roughness:.7}),
+  bl:new THREE.MeshStandardMaterial({color:0x2563eb,roughness:.65}),
+  mn:new THREE.MeshStandardMaterial({color:0x6b7d8c,metalness:.45,roughness:.5}),
+  gn:new THREE.MeshStandardMaterial({color:0xe7f0e6,roughness:1,transparent:true,opacity:.45,side:THREE.DoubleSide}),
+  dm:new THREE.MeshBasicMaterial({color:0x1d4ed8}),
+  dmR:new THREE.MeshBasicMaterial({color:0xb42318})
+};
+
+var gStr=new THREE.Group(), gEq=new THREE.Group(), gRf=new THREE.Group();
+var gCb=new THREE.Group(), gFn=new THREE.Group(), gDm=new THREE.Group(), gLb=new THREE.Group();
+scene.add(gStr,gEq,gRf,gCb,gFn,gDm,gLb);
+var pickables=[];
+
+function bx(g,w,h,d,x,y,z,mat,nm,inf,pick){
+  var geo=new THREE.BoxGeometry(w,h,d);
+  var m=new THREE.Mesh(geo,mat);
+  m.position.set(x,y,z); m.name=nm||""; m.userData.info=inf||nm||"";
+  g.add(m);
+  m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({color:0x34465a,transparent:true,opacity:.3})));
+  if(pick!==false) pickables.push(m);
+  return m;
+}
+function beam(g,a,b,w,d,mat,nm,inf){
+  var va=new THREE.Vector3(a[0],a[1],a[2]), vb=new THREE.Vector3(b[0],b[1],b[2]);
+  var dir=new THREE.Vector3().subVectors(vb,va), len=dir.length();
+  var geo=new THREE.BoxGeometry(w,len,d);
+  var m=new THREE.Mesh(geo,mat);
+  m.position.copy(va).add(vb).multiplyScalar(.5);
+  m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), dir.normalize());
+  m.name=nm||""; m.userData.info=inf||nm||"";
+  g.add(m);
+  m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({color:0x34465a,transparent:true,opacity:.25})));
+  pickables.push(m); return m;
+}
+function tube(g,pts,r,mat,nm,inf){
+  var curve=new THREE.CatmullRomCurve3(pts.map(function(p){return new THREE.Vector3(p[0],p[1],p[2]);}),false,"centripetal");
+  var m=new THREE.Mesh(new THREE.TubeGeometry(curve,40,r,6,false),mat);
+  m.name=nm||""; m.userData.info=inf||nm||""; g.add(m); pickables.push(m); return m;
+}
+function spriteLabel(text,x,y,z,scale,parent){
+  var lines=text.split("\n"), fs=52, lh=fs*1.18, pad=18;
+  var c=document.createElement("canvas"), tmp=c.getContext("2d");
+  tmp.font="bold "+fs+"px Arial";
+  var mw=0; lines.forEach(function(l){mw=Math.max(mw,tmp.measureText(l).width);});
+  c.width=Math.ceil(mw+pad*2); c.height=Math.ceil(lines.length*lh+pad*2);
+  var ctx=c.getContext("2d");
+  ctx.fillStyle="rgba(255,255,255,.93)"; ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle="#9eb2c6"; ctx.lineWidth=4; ctx.strokeRect(2,2,c.width-4,c.height-4);
+  ctx.fillStyle="#0f172a"; ctx.font="bold "+fs+"px Arial"; ctx.textAlign="center"; ctx.textBaseline="top";
+  lines.forEach(function(l,i){ctx.fillText(l,c.width/2,pad+i*lh);});
+  var tex=new THREE.CanvasTexture(c); tex.encoding=THREE.sRGBEncoding;
+  var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false}));
+  sp.position.set(x,y,z); sp.scale.set(scale*c.width/c.height,scale,1); sp.renderOrder=10;
+  (parent||gLb).add(sp); return sp;
+}
+function dimLine(a,b,label,color,lsize){
+  color=color||0x1d4ed8; lsize=lsize||0.065;
+  var va=new THREE.Vector3(a[0],a[1],a[2]), vb=new THREE.Vector3(b[0],b[1],b[2]);
+  gDm.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([va,vb]), new THREE.LineBasicMaterial({color:color})));
+  var matDot=color===0xb42318?M.dmR:M.dm;
+  [va,vb].forEach(function(v){var s=new THREE.Mesh(new THREE.SphereGeometry(0.012,10,10),matDot); s.position.copy(v); gDm.add(s);});
+  var mid=new THREE.Vector3().addVectors(va,vb).multiplyScalar(.5);
+  spriteLabel(label, mid.x, mid.y+0.045, mid.z, lsize, gDm);
+}
+
+/* techo con pendiente REAL hacia adelante (frente más bajo), sin rotación invertida */
+function slopedRoof(g,w,thick,zBack,zFront,yBack,yFront,nm,inf){
+  var hw=w/2;
+  var pos=new Float32Array([
+    -hw,yBack,zBack,  hw,yBack,zBack,  hw,yFront,zFront,  -hw,yFront,zFront,
+    -hw,yBack+thick,zBack, hw,yBack+thick,zBack, hw,yFront+thick,zFront, -hw,yFront+thick,zFront
+  ]);
+  var idx=[0,1,2,0,2,3, 4,7,6,4,6,5, 0,3,7,0,7,4, 1,5,6,1,6,2, 0,4,5,0,5,1, 3,2,6,3,6,7];
+  var geo=new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.BufferAttribute(pos,3));
+  geo.setIndex(idx); geo.computeVertexNormals();
+  var m=new THREE.Mesh(geo,M.rf);
+  m.name=nm; m.userData.info=inf; g.add(m);
+  m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({color:0x34465a,transparent:true,opacity:.35})));
+  pickables.push(m); return m;
+}
+
+/* cotas en metros */
+var W=3.435, LX=-W/2, RX=W/2;
+var dcX=-1.4175, acX=1.4175, invHW=1.035/2;
+var leg1=-0.36875, leg2=0.36875, rZ=-0.045;
+var topY=1.6, botY=1.0, invBot=0.9, acBot=0.85;
+
+var gr=new THREE.Mesh(new THREE.PlaneGeometry(5.8,2.6), M.gn);
+gr.rotation.x=-Math.PI/2; gr.position.set(0,-0.003,0.28); scene.add(gr);
+scene.add(new THREE.GridHelper(5.6,22,0xa3b8ad,0xd4e2d7));
+
+/* estructura */
+bx(gStr,W,0.09,0.04,0,topY,rZ,M.st,"Horizontal superior · 3435 mm",
+  "PGC 90×40×15×1,6 mm\nLongitud: 3435 mm\nEje Y = 1600 mm\nDe X = −1717,5 a +1717,5");
+bx(gStr,W,0.09,0.04,0,botY,rZ,M.st,"Horizontal inferior · 3435 mm",
+  "PGC 90×40×15×1,6 mm\nLongitud: 3435 mm\nEje Y = 1000 mm (borde inferior tablero CC)\nDe X = −1717,5 a +1717,5");
+
+/* vertical CC: más largo hacia abajo, hasta el piso */
+bx(gStr,0.09,1.9,0.04,LX,0.95,rZ,M.sd,"Vertical CC (izquierdo) · 1900 mm",
+  "PGC 90×40×15×1,6 mm\nLongitud: 1900 mm\nDe Y = 0 (piso) a Y = 1900 (techo)\nX = −1717,5 mm\nRecibe ménsula de bandeja y triángulo de techo");
+bx(gStr,0.18,0.012,0.18,LX,0.006,rZ,M.st,"Placa de apoyo vertical CC",
+  "Placa de apoyo en piso. No es base de hormigón de 400×400.");
+
+bx(gStr,0.09,0.6,0.04,RX,1.3,rZ,M.sd,"Vertical AC (derecho) · 600 mm",
+  "PGC 90×40×15×1,6 mm\nLongitud: 600 mm\nDe Y = 1000 a Y = 1600\nX = +1717,5 mm");
+
+[leg1,leg2].forEach(function(x,i){
+  var lado=i===0?"izquierda":"derecha";
+  bx(gStr,0.09,2.2,0.04,x,0.5,rZ,M.sd,"Pata inversor "+lado+" · 2200 mm",
+    "PGC 90×40×15×1,6 mm\nLongitud: 2200 mm\nDe Y = −600 (enterrada) a Y = 1600\nX = "+Math.round(x*1000)+" mm\nSeparación entre patas: 737,5 mm");
+  bx(gFn,0.4,0.6,0.4,x,-0.3,rZ,M.co,"Base hormigón "+lado+" · 400×400×600",
+    "Base de hormigón 400×400 mm en planta\nProfundidad representada: 600 mm (patas enterradas 600 mm)\nProfundidad definitiva por cálculo");
+});
+
+/* equipos */
+bx(gEq,0.6,0.6,0.225,dcX,1.3,0.1125,M.bd,"Tablero CC Genrod · 600×600×225",
+  "Tablero CC Genrod\n600×600×225 mm\nY inf = 1000 · Y sup = 1600\nSeparación al inversor: 600 mm");
+bx(gEq,1.035,0.7,0.3875,0,1.25,0.19375,M.iv,"Inversor Huawei SUN2000-100KTL-M2",
+  "1035×700×387,5 mm · 93 kg · IP66\nY inf = 900 · Y sup = 1600\nCentrado en X = 0\nSoportes a 737,5 mm");
+bx(gEq,0.6,0.75,0.225,acX,1.225,0.1125,M.bd,"Tablero AC Genrod · 600×750×225",
+  "Tablero AC Genrod\n600×750×225 mm\nY inf = 850 · Y sup = 1600\nEl cable AC entra por debajo");
+bx(gEq,0.035,0.055,0.012,dcX+0.19,1.30,0.232,M.bk,"Cierre CC","Manija tablero CC",false);
+bx(gEq,0.035,0.055,0.012,acX+0.19,1.225,0.232,M.bk,"Cierre AC","Manija tablero AC",false);
+bx(gEq,0.16,0.055,0.012,0,1.28,0.394,M.bk,"Display inversor","Frontal del inversor",false);
+
+/* TECHO: frente más bajo que la parte de atrás */
+var zBack=-0.08, zFront=0.65, yBack=1.90, yFront=1.84, rfW=3.935, rfT=0.025;
+slopedRoof(gRf, rfW, rfT, zBack, zFront, yBack, yFront,
+  "Cubierta de techo · 3935×730 mm",
+  "Cubierta 3935 × 730 mm\nPendiente hacia ADELANTE (escurrimiento al frente)\nAtrás Y ≈ 1900 · Frente Y ≈ 1840\nCaída ≈ 60 mm en 730 mm (~4,7°)");
+bx(gRf,rfW,0.04,0.02,0,yFront-0.01,zFront+0.02,M.rf,"Goterón frontal · 3935 mm",
+  "Goterón en el borde bajo (frente) para descargar el agua delante de los equipos");
+
+function roofTri(x,side,needPost){
+  if(needPost){
+    beam(gRf,[x,topY,rZ],[x,yBack,zBack],0.045,0.045,M.sd,
+      "Prolongación techo "+side+" · ≈300 mm",
+      "De Y=1600 a Y=1900, extremo "+side);
+  }
+  beam(gRf,[x,yBack,zBack],[x,yFront,zFront],0.045,0.045,M.st,
+    "Brazo superior techo "+side+" · ≈740 mm",
+    "Brazo inclinado hacia adelante (frente más bajo)\nLongitud ≈ 740 mm");
+  beam(gRf,[x,topY,rZ],[x,yFront,zFront],0.045,0.045,M.sd,
+    "Diagonal techo "+side+" · ≈785 mm",
+    "Triangulación del techo\nLongitud ≈ 785 mm");
+}
+roofTri(LX,"izquierda",false);
+roofTri(RX,"derecha",true);
+beam(gRf,[LX,1.895,0.08],[RX,1.895,0.08],0.035,0.035,M.st,"Correa techo posterior · 3435 mm","Une ambos triángulos, zona posterior.");
+beam(gRf,[LX,1.848,0.51],[RX,1.848,0.51],0.035,0.035,M.st,"Correa techo frontal · 3435 mm","Une ambos triángulos, zona frontal.");
+
+/* BANDEJA FRONTAL sobre 2 ménsulas: vertical CC + pata izq. inversor */
+var trayY=0.70, trayZ=0.32, trayXL=LX, trayXR=leg1;
+var trayLen=trayXR-trayXL, trayMid=(trayXL+trayXR)/2;
+
+function mensula(x,nombre,info){
+  bx(gCb,0.05,0.012,0.30,x,trayY-0.008,trayZ-0.02,M.mn,nombre,info);
+  beam(gCb,[x,trayY-0.01,rZ],[x,trayY-0.008,trayZ+0.10],0.03,0.03,M.mn,
+    "Cartela "+nombre, "Cartela de la ménsula, anclada al perfil.");
+}
+mensula(LX,"Ménsula bandeja en vertical CC · ≈300 mm",
+  "Ménsula anclada al vertical de CC (prolongado hasta el piso)\nY ≈ 700 mm · sale hacia adelante\nSoporta el extremo izquierdo de la bandeja");
+mensula(leg1,"Ménsula bandeja en pata inversor izq. · ≈300 mm",
+  "Ménsula anclada a la pata izquierda de soportes del inversor\nY ≈ 700 mm · sale hacia adelante\nSoporta el extremo derecho de la bandeja");
+
+bx(gCb,trayLen,0.015,0.14,trayMid,trayY,trayZ,M.tr,"Bandeja CC galvanizada · ≈1350 mm",
+  "Bandeja portacables CC, por DELANTE\nLongitud ≈ 1350 mm\nDe X = −1717,5 a X = −368,75\nY ≈ 700 mm\nApoyada en 2 ménsulas");
+bx(gCb,trayLen,0.048,0.01,trayMid,trayY+0.024,trayZ-0.065,M.tr,"Ala bandeja posterior","Ala posterior",false);
+bx(gCb,trayLen,0.048,0.01,trayMid,trayY+0.024,trayZ+0.065,M.tr,"Ala bandeja frontal","Ala frontal",false);
+bx(gCb,0.12,0.03,0.06,dcX,0.985,0.22,M.bk,"Prensacables tablero CC","Salida inferior del tablero CC",false);
+bx(gCb,0.10,0.03,0.06,leg1+0.05,0.78,trayZ,M.bk,"Prensacables salida bandeja","Salida hacia conectores del inversor",false);
+
+/* 11 strings: + rojo / − negro */
+for(var i=0;i<11;i++){
+  var off=(i-5)*0.008;
+  tube(gCb,[
+    [dcX+off, 0.99, 0.20],
+    [dcX+off, 0.82, 0.27],
+    [dcX+off, trayY+0.022, trayZ-0.02],
+    [leg1+0.03+off, trayY+0.022, trayZ-0.02],
+    [leg1+0.12+off, 0.80, 0.22],
+    [-invHW+0.05+off*0.4, invBot+0.03, 0.20]
+  ],0.003,M.rd,"String CC #"+(i+1)+" POSITIVO · rojo 4 mm²",
+    "Conductor solar POSITIVO, color ROJO\nString #"+(i+1)+" · 4 mm²\nTablero CC → bandeja frontal → inversor");
+  tube(gCb,[
+    [dcX+off+0.004, 0.99, 0.21],
+    [dcX+off+0.004, 0.81, 0.28],
+    [dcX+off+0.004, trayY+0.022, trayZ+0.02],
+    [leg1+0.03+off+0.004, trayY+0.022, trayZ+0.02],
+    [leg1+0.12+off+0.004, 0.79, 0.23],
+    [-invHW+0.05+off*0.4+0.004, invBot+0.015, 0.21]
+  ],0.003,M.ng,"String CC #"+(i+1)+" NEGATIVO · negro 4 mm²",
+    "Conductor solar NEGATIVO, color NEGRO\nString #"+(i+1)+" · 4 mm²\nTablero CC → bandeja frontal → inversor");
+}
+
+/* AC: sale del costado AC del inversor y entra POR DEBAJO del tablero AC */
+tube(gCb,[
+  [invHW+0.005, 1.05, 0.18],
+  [invHW+0.10, 0.98, 0.16],
+  [0.75, 0.78, 0.12],
+  [1.15, 0.76, 0.11],
+  [acX, 0.76, 0.11],
+  [acX, acBot-0.01, 0.11]
+],0.022,M.bl,"Cable AC · 3×95+50 mm² XLPE",
+  "Cobre XLPE 3×95 + 50 mm²\nSale por el COSTADO AC del inversor\nEntra POR DEBAJO del tablero AC\nSin bandeja; con prensaestopas");
+bx(gCb,0.09,0.03,0.07,acX,acBot-0.005,0.11,M.bk,"Prensaestopas inferior tablero AC",
+  "Entrada inferior del cable AC al tablero AC");
+
+spriteLabel("TABLERO CC\n600×600×225", dcX,1.72,0.30,0.085);
+spriteLabel("INVERSOR\n1035×700×387,5", 0,1.72,0.48,0.09);
+spriteLabel("TABLERO AC\n600×750×225", acX,1.72,0.30,0.085);
+
+dimLine([LX,0.16,0.72],[RX,0.16,0.72],"3435 mm · horizontales",0x1d4ed8,0.075);
+dimLine([leg1,0.38,0.22],[leg2,0.38,0.22],"737,5 mm patas inversor",0x7c3aed,0.06);
+dimLine([dcX+0.3,topY+0.07,0.52],[-invHW,topY+0.07,0.52],"600 mm libre",0x087443,0.055);
+dimLine([invHW,topY+0.07,0.52],[acX-0.3,topY+0.07,0.52],"600 mm libre",0x087443,0.055);
+dimLine([acX+0.36,0,0.36],[acX+0.36,acBot,0.36],"850 mm AC-piso",0x1d4ed8,0.058);
+dimLine([LX,topY,0.60],[RX,topY,0.60],"Y = 1600 superior",0x334155,0.052);
+dimLine([LX,botY,0.60],[RX,botY,0.60],"Y = 1000 horiz. inf.",0x334155,0.052);
+dimLine([-rfW/2,2.05,0.28],[rfW/2,2.05,0.28],"3935 mm techo",0x8b5e0f,0.06);
+dimLine([rfW/2+0.10,yBack,zBack],[rfW/2+0.10,yFront,zFront],"730 mm · cae al frente",0x8b5e0f,0.052);
+dimLine([LX-0.14,0,rZ],[LX-0.14,1.9,rZ],"1900 mm vert. CC",0x566779,0.055);
+dimLine([RX+0.14,botY,rZ],[RX+0.14,topY,rZ],"600 mm vert. AC",0x566779,0.05);
+dimLine([leg1-0.14,-0.6,rZ],[leg1-0.14,topY,rZ],"2200 mm pata",0x566779,0.052);
+dimLine([leg2+0.14,-0.6,rZ],[leg2+0.14,0,rZ],"600 mm enterrados",0xb42318,0.05);
+dimLine([trayXL,trayY-0.12,trayZ],[trayXR,trayY-0.12,trayZ],"≈1350 mm bandeja",0x6b7d8c,0.052);
+
+var raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2(), last=null;
+function vis(o){while(o){if(!o.visible)return false; o=o.parent;} return true;}
+function pick(ev){
+  var rect=cv.getBoundingClientRect();
+  pointer.x=((ev.clientX-rect.left)/rect.width)*2-1;
+  pointer.y=-((ev.clientY-rect.top)/rect.height)*2+1;
+  raycaster.setFromCamera(pointer,camera);
+  var hits=raycaster.intersectObjects(pickables,false), hit=null;
+  for(var i=0;i<hits.length;i++){ if(vis(hits[i].object)){ hit=hits[i].object; break; } }
+  if(hit){
+    tipEl.style.display="block";
+    tipEl.style.left=(ev.clientX-rect.left+14)+"px";
+    tipEl.style.top=(ev.clientY-rect.top+14)+"px";
+    tipEl.textContent=hit.name;
+    infoEl.innerHTML="<strong>"+hit.name+"</strong>"+(hit.userData.info||"").replace(/\n/g,"<br>");
+    last=hit;
+  } else {
+    tipEl.style.display="none";
+  }
+}
+cv.addEventListener("pointermove",pick);
+cv.addEventListener("pointerdown",pick);
+cv.addEventListener("pointerleave",function(){tipEl.style.display="none";});
+
+function tog(id,g){var b=document.getElementById(id); b.addEventListener("click",function(){g.visible=!g.visible; b.setAttribute("aria-pressed",String(g.visible));});}
+tog("toggleRoof",gRf); tog("toggleCables",gCb); tog("toggleFound",gFn); tog("toggleDims",gDm); tog("toggleLabels",gLb);
+document.getElementById("viewIso").onclick=isoV;
+document.getElementById("viewFront").onclick=frV;
+document.getElementById("viewSide").onclick=siV;
+document.getElementById("viewTop").onclick=toV;
+
+function resize(){var w=vp.clientWidth,h=vp.clientHeight; if(!w||!h)return; camera.aspect=w/h; camera.updateProjectionMatrix(); renderer.setSize(w,h,false);}
+window.addEventListener("resize",resize);
+if("ResizeObserver" in window) new ResizeObserver(resize).observe(vp);
+resize();
+cv.addEventListener("webglcontextlost",function(e){e.preventDefault(); cv.style.display="none"; fail("WebGL no disponible. Vista alternativa.");});
+st.textContent="Visor 3D activo. Hover o toque: detalle en el recuadro inferior derecho.";
+(function loop(){requestAnimationFrame(loop); ctrl.update(); renderer.render(scene,camera);})();
+}catch(err){
+  var c=vp.querySelector("canvas"); if(c) c.remove();
+  fail("No se pudo iniciar WebGL. Vista alternativa.");
+  console.error(err);
+}
+})();
+</script>
+</body>
+</html>
